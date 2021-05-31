@@ -45,10 +45,12 @@ state of the world shall be representable in Tiled. There will be some global
 state
 - PRNG state
 - time in game
+
 Some state per player
 - score
 - kill/die count
 - inventory (health, ammo, ...)
+
 Some state per object:
 - velocity
 
@@ -155,4 +157,4 @@ as well as stationary objects. This also means that e.g. the side of the player
     - player died
     - player gained ability that enables new input type
 - On the server the world engine will not interact with the game engine, but
-with a server engine.pellro
+with a server engine.
