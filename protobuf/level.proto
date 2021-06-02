@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package jumper.levels;
+// implementation of https://github.com/mapeditor/tiled/blob/master/docs/reference/json-map-format.rst
+
+option go_package = "protobuf/level";
+
+message PropertyInt {
+    string name = 1;
+    enum PropertyIntType{
+        int = 0;
+    }
+    PropertyIntType type = 2;
+    int32 value = 3;
+
+}
+
+message PropertyString {
+    string name = 1;
+    enum PropertyStringType{
+        string = 0;
+    }
+    PropertyStringType type = 2;
+    string value = 3;
+}
+
+message Point {
+    double x=1;
+    double y=2;
+}
