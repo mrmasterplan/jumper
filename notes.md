@@ -16,3 +16,12 @@ Dev tasks:
             - type collectible
             - collectibe function
             - etc.
+    - assume on pb load that file is valid.
+        - panic on parse error
+        - check consistency (anmation etc.)
+
+Links:
+- https://tutorialedge.net/golang/parsing-xml-with-golang/
+- https://golang.org/pkg/encoding/xml/#Unmarshal
+- https://developers.google.com/protocol-buffers/docs/proto3
+- https://github.com/mapeditor/tiled/blob/master/docs/reference/tmx-map-format.rst

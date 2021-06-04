@@ -5,16 +5,47 @@ package jumper.levels;
 
 option go_package = "protobuf/level";
 
-message PropertyInt {
-    string name = 1;
-    enum PropertyIntType{
-        int = 0;
-    }
-    PropertyIntType type = 2;
-    int32 value = 3;
-
+message Transformations {
+    bool hflip = 0;
+    bool vflip = 1;
+    bool rotate = 2;
+    bool preferuntransformed = 3;
 }
 
+message Tile {
+    repeated Frame animation = 0;
+    int32 id = 1;
+    string image = 2;
+    int32 imageheight = 3;
+    int32 imagewidth = 4;
+    Layer objectgroup = 5;
+    double probability = 6;
+    repeated PropertyString properties = 7;
+    repeated int32 terrain = 8;
+    string type = 9;
+}
+
+message Frame {
+    int32 duration = 0;
+    int32 tileid = 1;
+}
+
+message Terrain {
+    string name = 0;
+    repeated PropertyString properties = 1;
+    int32 tile = 2;
+}
+
+message ObjectTemplate {
+    string type =0;
+    Tileset tileset = 1;
+    Object object = 2;
+}
+
+
+// because of the lack of ploymorphism in protobuf,
+// I can only implement one type of property. I chose string.
+// every other type of property will need to be encoded as string
 message PropertyString {
     string name = 1;
     enum PropertyStringType{
