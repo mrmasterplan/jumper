@@ -136,7 +136,7 @@ I can switch between their development when I get bored with one or the other.
 
 ### More Notes on the world engine
 - I want the geometry to be 90% encoded in the level. E.g. hit-boxes of moving
-as well as stationary objects. This also means that e.g. the side of the player
+as well as stationary objects. This also means that e.g. the size of the player
   is not fixed in the engine (1 tile like RwK, 2 tiles like minecraft)
 - Collectibles: Active and passive abilities, keys, switches, bonuses should use a plugin
  system to interact with "the laws of nature". The plugin system is not designed yet.
@@ -156,5 +156,6 @@ as well as stationary objects. This also means that e.g. the side of the player
     - player won
     - player died
     - player gained ability that enables new input type
+    - splash screen messages (e.g. "found a gun" or radio messages. The lingering will not be level state.)
 - On the server the world engine will not interact with the game engine, but
 with a server engine.
