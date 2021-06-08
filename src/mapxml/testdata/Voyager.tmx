@@ -5,22 +5,1136 @@
   <property name="music_blue" value=""/>
   <property name="music_green" value=""/>
   <property name="music_red" value=""/>
-  <property name="name" value="Voyager"/>
+  <property name="name">Voyager</property>
   <property name="tags" value="silly,huge,rpg"/>
  </properties>
- <tileset firstgid="1" source="../../ext:/rwk/tilesets/base.json"/>
- <tileset firstgid="75" source="../../ext:/rwk/tilesets/map.json"/>
- <tileset firstgid="149" source="../../ext:/rwk/tilesets/robot.json"/>
- <tileset firstgid="151" source="../../ext:/rwk/tilesets/acid.json"/>
- <tileset firstgid="198" source="../../ext:/rwk/tilesets/alu.json"/>
- <tileset firstgid="245" source="../../ext:/rwk/tilesets/grate.json"/>
- <tileset firstgid="292" source="../../ext:/rwk/tilesets/lava.json"/>
- <tileset firstgid="339" source="../../ext:/rwk/tilesets/mario.json"/>
- <tileset firstgid="386" source="../../ext:/rwk/tilesets/mesh.json"/>
- <tileset firstgid="433" source="../../ext:/rwk/tilesets/panels.json"/>
- <tileset firstgid="480" source="../../ext:/rwk/tilesets/steel.json"/>
- <tileset firstgid="527" source="../../ext:/rwk/tilesets/velcro.json"/>
- <tileset firstgid="574" source="../../ext:/rwk/tilesets/warn.json"/>
+ <tileset firstgid="1" name="base" tilewidth="40" tileheight="41" tilecount="74" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <properties>
+    <property name="base" type="int" value="2"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/02000000.png"/>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="base" type="int" value="1"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/01000000.png"/>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="base" type="int" value="3"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/03000000.png"/>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="base" type="int" value="29"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/1d000000.png"/>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="base" type="int" value="47"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/2f000000.png"/>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="base" type="int" value="30"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/1e000000.png"/>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="base" type="int" value="33"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/21000000.png"/>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="base" type="int" value="34"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/22000000.png"/>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="base" type="int" value="35"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/23000000.png"/>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="base" type="int" value="20"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/14000000.png"/>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="base" type="int" value="14"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/0e000000.png"/>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="base" type="int" value="15"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/0f000000.png"/>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="base" type="int" value="16"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/10000000.png"/>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="base" type="int" value="17"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/11000000.png"/>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="base" type="int" value="18"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/12000000.png"/>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="base" type="int" value="19"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/13000000.png"/>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="base" type="int" value="51"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/33000000.png"/>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="base" type="int" value="52"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/34000000.png"/>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="base" type="int" value="11"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/0b000000.png"/>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="base" type="int" value="12"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/0c000000.png"/>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="base" type="int" value="13"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/0d000000.png"/>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="base" type="int" value="50"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/32000000.png"/>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="base" type="int" value="4"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/04000000.png"/>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="base" type="int" value="5"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/05000000.png"/>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="base" type="int" value="6"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/06000000.png"/>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="base" type="int" value="7"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/07000000.png"/>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="base" type="int" value="8"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/08000000.png"/>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="base" type="int" value="9"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/09000000.png"/>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="base" type="int" value="10"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/0a000000.png"/>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="base" type="int" value="42"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/2a000000.png"/>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="base" type="int" value="72"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/48000000.png"/>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="base" type="int" value="25"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/19000000.png"/>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="base" type="int" value="26"/>
+   </properties>
+   <image width="40" height="39" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/1a000000.png"/>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="base" type="int" value="65"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/41000000.png"/>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="base" type="int" value="27"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/1b000000.png"/>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="base" type="int" value="21"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/15000000.png"/>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="base" type="int" value="22"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/16000000.png"/>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="base" type="int" value="23"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/17000000.png"/>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="base" type="int" value="53"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/35000000.png"/>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="base" type="int" value="56"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/38000000.png"/>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="base" type="int" value="71"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/47000000.png"/>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="base" type="int" value="36"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/24000000.png"/>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="base" type="int" value="24"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/18000000.png"/>
+  </tile>
+  <tile id="43">
+   <properties>
+    <property name="base" type="int" value="41"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/29000000.png"/>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="base" type="int" value="37"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/25000000.png"/>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="base" type="int" value="31"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/1f000000.png"/>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="base" type="int" value="32"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/20000000.png"/>
+  </tile>
+  <tile id="47">
+   <properties>
+    <property name="base" type="int" value="28"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/1c000000.png"/>
+  </tile>
+  <tile id="48">
+   <properties>
+    <property name="base" type="int" value="38"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/26000000.png"/>
+  </tile>
+  <tile id="49">
+   <properties>
+    <property name="base" type="int" value="43"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/2b000000.png"/>
+  </tile>
+  <tile id="50">
+   <properties>
+    <property name="base" type="int" value="39"/>
+   </properties>
+   <image width="40" height="41" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/27000000.png"/>
+  </tile>
+  <tile id="51">
+   <properties>
+    <property name="base" type="int" value="40"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/28000000.png"/>
+  </tile>
+  <tile id="52">
+   <properties>
+    <property name="base" type="int" value="44"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/2c000000.png"/>
+  </tile>
+  <tile id="53">
+   <properties>
+    <property name="base" type="int" value="45"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/2d000000.png"/>
+  </tile>
+  <tile id="54">
+   <properties>
+    <property name="base" type="int" value="46"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/2e000000.png"/>
+  </tile>
+  <tile id="55">
+   <properties>
+    <property name="base" type="int" value="48"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/30000000.png"/>
+  </tile>
+  <tile id="56">
+   <properties>
+    <property name="base" type="int" value="49"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/31000000.png"/>
+  </tile>
+  <tile id="57">
+   <properties>
+    <property name="base" type="int" value="54"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/36000000.png"/>
+  </tile>
+  <tile id="58">
+   <properties>
+    <property name="base" type="int" value="55"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/37000000.png"/>
+  </tile>
+  <tile id="59">
+   <properties>
+    <property name="base" type="int" value="64"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/40000000.png"/>
+  </tile>
+  <tile id="60">
+   <properties>
+    <property name="base" type="int" value="57"/>
+   </properties>
+   <image width="34" height="34" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/39000000.png"/>
+  </tile>
+  <tile id="61">
+   <properties>
+    <property name="base" type="int" value="58"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/3a000000.png"/>
+  </tile>
+  <tile id="62">
+   <properties>
+    <property name="base" type="int" value="59"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/3b000000.png"/>
+  </tile>
+  <tile id="63">
+   <properties>
+    <property name="base" type="int" value="60"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/3c000000.png"/>
+  </tile>
+  <tile id="64">
+   <properties>
+    <property name="base" type="int" value="62"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/3e000000.png"/>
+  </tile>
+  <tile id="65">
+   <properties>
+    <property name="base" type="int" value="61"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/3d000000.png"/>
+  </tile>
+  <tile id="66">
+   <properties>
+    <property name="base" type="int" value="63"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/3f000000.png"/>
+  </tile>
+  <tile id="67">
+   <properties>
+    <property name="base" type="int" value="66"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/42000000.png"/>
+  </tile>
+  <tile id="68">
+   <properties>
+    <property name="base" type="int" value="67"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/43000000.png"/>
+  </tile>
+  <tile id="69">
+   <properties>
+    <property name="base" type="int" value="68"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/44000000.png"/>
+  </tile>
+  <tile id="70">
+   <properties>
+    <property name="base" type="int" value="69"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/45000000.png"/>
+  </tile>
+  <tile id="71">
+   <properties>
+    <property name="base" type="int" value="70"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/46000000.png"/>
+  </tile>
+  <tile id="72">
+   <properties>
+    <property name="base" type="int" value="73"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/49000000.png"/>
+  </tile>
+  <tile id="73">
+   <properties>
+    <property name="base" type="int" value="81"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/51000000.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="75" source="../../../../../ext:/rwk/tilesets/map.json"/>
+ <tileset firstgid="149" source="../../../../../ext:/rwk/tilesets/robot.json"/>
+ <tileset firstgid="151" name="acid" tilewidth="40" tileheight="40" tilecount="47" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <properties>
+   <property name="is_paintable" type="bool" value="true"/>
+  </properties>
+  <tile id="0">
+   <properties>
+    <property name="paint" type="int" value="8424192"/>
+    <property name="paint_grid" value="11111111"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/008b8000.png"/>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="paint" type="int" value="8420992"/>
+    <property name="paint_grid" value="01101011"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/807e8000.png"/>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="paint" type="int" value="8421376"/>
+    <property name="paint_grid" value="00011111"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00808000.png"/>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="paint" type="int" value="8421760"/>
+    <property name="paint_grid" value="11010110"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80818000.png"/>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="paint" type="int" value="8422144"/>
+    <property name="paint_grid" value="11111000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00838000.png"/>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="paint" type="int" value="8419840"/>
+    <property name="paint_grid" value="00001011"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/007a8000.png"/>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="paint" type="int" value="8419968"/>
+    <property name="paint_grid" value="00010110"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/807a8000.png"/>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="paint" type="int" value="8420096"/>
+    <property name="paint_grid" value="11010000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/007b8000.png"/>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="paint" type="int" value="8419712"/>
+    <property name="paint_grid" value="01101000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80798000.png"/>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="paint" type="int" value="8424576"/>
+    <property name="paint_grid" value="00011000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/808c8000.png"/>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="paint" type="int" value="8424448"/>
+    <property name="paint_grid" value="01000010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/008c8000.png"/>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="paint" type="int" value="8418816"/>
+    <property name="paint_grid" value="00001000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00768000.png"/>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="paint" type="int" value="8418944"/>
+    <property name="paint_grid" value="00000010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80768000.png"/>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="paint" type="int" value="8419072"/>
+    <property name="paint_grid" value="00010000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00778000.png"/>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="paint" type="int" value="8418688"/>
+    <property name="paint_grid" value="01000000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80758000.png"/>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="paint" type="int" value="8423680"/>
+    <property name="paint_grid" value="01111111"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00898000.png"/>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="paint" type="int" value="8424064"/>
+    <property name="paint_grid" value="11011111"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/808a8000.png"/>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="paint" type="int" value="8423936"/>
+    <property name="paint_grid" value="11111110"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/008a8000.png"/>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="paint" type="int" value="8423808"/>
+    <property name="paint_grid" value="11111011"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80898000.png"/>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="paint" type="int" value="8422912"/>
+    <property name="paint_grid" value="01111011"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00868000.png"/>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="paint" type="int" value="8423040"/>
+    <property name="paint_grid" value="01011111"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80868000.png"/>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="paint" type="int" value="8423168"/>
+    <property name="paint_grid" value="11011110"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00878000.png"/>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="paint" type="int" value="8423296"/>
+    <property name="paint_grid" value="11111010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80878000.png"/>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="paint" type="int" value="8423424"/>
+    <property name="paint_grid" value="01111110"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00888000.png"/>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="paint" type="int" value="8423552"/>
+    <property name="paint_grid" value="11011011"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80888000.png"/>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="paint" type="int" value="8422784"/>
+    <property name="paint_grid" value="11011010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80858000.png"/>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="paint" type="int" value="8422400"/>
+    <property name="paint_grid" value="01111010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00848000.png"/>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="paint" type="int" value="8422528"/>
+    <property name="paint_grid" value="01011011"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80848000.png"/>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="paint" type="int" value="8422656"/>
+    <property name="paint_grid" value="01011110"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00858000.png"/>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="paint" type="int" value="8422272"/>
+    <property name="paint_grid" value="01011010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80838000.png"/>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="paint" type="int" value="8420864"/>
+    <property name="paint_grid" value="01001011"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/007e8000.png"/>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="paint" type="int" value="8420736"/>
+    <property name="paint_grid" value="01101010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/807d8000.png"/>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="paint" type="int" value="8421120"/>
+    <property name="paint_grid" value="00011011"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/007f8000.png"/>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="paint" type="int" value="8421248"/>
+    <property name="paint_grid" value="00011110"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/807f8000.png"/>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="paint" type="int" value="8421504"/>
+    <property name="paint_grid" value="01010110"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80808000.png"/>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="paint" type="int" value="8421632"/>
+    <property name="paint_grid" value="11010010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00818000.png"/>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="paint" type="int" value="8421888"/>
+    <property name="paint_grid" value="01111000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00828000.png"/>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="paint" type="int" value="8422016"/>
+    <property name="paint_grid" value="11011000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80828000.png"/>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="paint" type="int" value="8420224"/>
+    <property name="paint_grid" value="01001010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/807b8000.png"/>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="paint" type="int" value="8420352"/>
+    <property name="paint_grid" value="00011010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/007c8000.png"/>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="paint" type="int" value="8420480"/>
+    <property name="paint_grid" value="01010010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/807c8000.png"/>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="paint" type="int" value="8420608"/>
+    <property name="paint_grid" value="01011000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/007d8000.png"/>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="paint" type="int" value="8419328"/>
+    <property name="paint_grid" value="00001010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00788000.png"/>
+  </tile>
+  <tile id="43">
+   <properties>
+    <property name="paint" type="int" value="8419456"/>
+    <property name="paint_grid" value="00010010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80788000.png"/>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="paint" type="int" value="8419584"/>
+    <property name="paint_grid" value="01010000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00798000.png"/>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="paint" type="int" value="8419200"/>
+    <property name="paint_grid" value="01001000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80778000.png"/>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="paint" type="int" value="8424320"/>
+    <property name="paint_grid" value="00000000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/808b8000.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="198" source="../../../../../ext:/rwk/tilesets/alu.json"/>
+ <tileset firstgid="245" name="grate" tilewidth="40" tileheight="40" tilecount="47" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <properties>
+   <property name="is_paintable" type="bool" value="true"/>
+  </properties>
+  <tile id="0">
+   <properties>
+    <property name="paint" type="int" value="8412160"/>
+    <property name="paint_grid" value="11111111"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/005c8000.png"/>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="paint" type="int" value="8408960"/>
+    <property name="paint_grid" value="01101011"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/804f8000.png"/>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="paint" type="int" value="8409344"/>
+    <property name="paint_grid" value="00011111"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00518000.png"/>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="paint" type="int" value="8409728"/>
+    <property name="paint_grid" value="11010110"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80528000.png"/>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="paint" type="int" value="8410112"/>
+    <property name="paint_grid" value="11111000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00548000.png"/>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="paint" type="int" value="8407808"/>
+    <property name="paint_grid" value="00001011"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/004b8000.png"/>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="paint" type="int" value="8407936"/>
+    <property name="paint_grid" value="00010110"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/804b8000.png"/>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="paint" type="int" value="8408064"/>
+    <property name="paint_grid" value="11010000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/004c8000.png"/>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="paint" type="int" value="8407680"/>
+    <property name="paint_grid" value="01101000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/804a8000.png"/>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="paint" type="int" value="8412544"/>
+    <property name="paint_grid" value="00011000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/805d8000.png"/>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="paint" type="int" value="8412416"/>
+    <property name="paint_grid" value="01000010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/005d8000.png"/>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="paint" type="int" value="8406784"/>
+    <property name="paint_grid" value="00001000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00478000.png"/>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="paint" type="int" value="8406912"/>
+    <property name="paint_grid" value="00000010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80478000.png"/>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="paint" type="int" value="8407040"/>
+    <property name="paint_grid" value="00010000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00488000.png"/>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="paint" type="int" value="8406656"/>
+    <property name="paint_grid" value="01000000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80468000.png"/>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="paint" type="int" value="8411648"/>
+    <property name="paint_grid" value="01111111"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/005a8000.png"/>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="paint" type="int" value="8412032"/>
+    <property name="paint_grid" value="11011111"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/805b8000.png"/>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="paint" type="int" value="8411904"/>
+    <property name="paint_grid" value="11111110"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/005b8000.png"/>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="paint" type="int" value="8411776"/>
+    <property name="paint_grid" value="11111011"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/805a8000.png"/>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="paint" type="int" value="8410880"/>
+    <property name="paint_grid" value="01111011"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00578000.png"/>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="paint" type="int" value="8411008"/>
+    <property name="paint_grid" value="01011111"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80578000.png"/>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="paint" type="int" value="8411136"/>
+    <property name="paint_grid" value="11011110"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00588000.png"/>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="paint" type="int" value="8411264"/>
+    <property name="paint_grid" value="11111010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80588000.png"/>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="paint" type="int" value="8411392"/>
+    <property name="paint_grid" value="01111110"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00598000.png"/>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="paint" type="int" value="8411520"/>
+    <property name="paint_grid" value="11011011"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80598000.png"/>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="paint" type="int" value="8410752"/>
+    <property name="paint_grid" value="11011010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80568000.png"/>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="paint" type="int" value="8410368"/>
+    <property name="paint_grid" value="01111010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00558000.png"/>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="paint" type="int" value="8410496"/>
+    <property name="paint_grid" value="01011011"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80558000.png"/>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="paint" type="int" value="8410624"/>
+    <property name="paint_grid" value="01011110"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00568000.png"/>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="paint" type="int" value="8410240"/>
+    <property name="paint_grid" value="01011010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80548000.png"/>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="paint" type="int" value="8408832"/>
+    <property name="paint_grid" value="01001011"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/004f8000.png"/>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="paint" type="int" value="8408704"/>
+    <property name="paint_grid" value="01101010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/804e8000.png"/>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="paint" type="int" value="8409088"/>
+    <property name="paint_grid" value="00011011"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00508000.png"/>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="paint" type="int" value="8409216"/>
+    <property name="paint_grid" value="00011110"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80508000.png"/>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="paint" type="int" value="8409472"/>
+    <property name="paint_grid" value="01010110"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80518000.png"/>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="paint" type="int" value="8409600"/>
+    <property name="paint_grid" value="11010010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00528000.png"/>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="paint" type="int" value="8409856"/>
+    <property name="paint_grid" value="01111000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00538000.png"/>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="paint" type="int" value="8409984"/>
+    <property name="paint_grid" value="11011000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80538000.png"/>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="paint" type="int" value="8408192"/>
+    <property name="paint_grid" value="01001010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/804c8000.png"/>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="paint" type="int" value="8408320"/>
+    <property name="paint_grid" value="00011010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/004d8000.png"/>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="paint" type="int" value="8408448"/>
+    <property name="paint_grid" value="01010010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/804d8000.png"/>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="paint" type="int" value="8408576"/>
+    <property name="paint_grid" value="01011000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/004e8000.png"/>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="paint" type="int" value="8407296"/>
+    <property name="paint_grid" value="00001010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/00498000.png"/>
+  </tile>
+  <tile id="43">
+   <properties>
+    <property name="paint" type="int" value="8407424"/>
+    <property name="paint_grid" value="00010010"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80498000.png"/>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="paint" type="int" value="8407552"/>
+    <property name="paint_grid" value="01010000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/004a8000.png"/>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="paint" type="int" value="8407168"/>
+    <property name="paint_grid" value="01001000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/80488000.png"/>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="paint" type="int" value="8412288"/>
+    <property name="paint_grid" value="00000000"/>
+   </properties>
+   <image width="40" height="40" source="../../../../../Users/SimonHeisterkamp(Del/AppData/Local/Tiled/extensions/rwk/tiles/805c8000.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="292" source="../../../../../ext:/rwk/tilesets/lava.json"/>
+ <tileset firstgid="339" source="../../../../../ext:/rwk/tilesets/mario.json"/>
+ <tileset firstgid="386" source="../../../../../ext:/rwk/tilesets/mesh.json"/>
+ <tileset firstgid="433" source="../../../../../ext:/rwk/tilesets/panels.json"/>
+ <tileset firstgid="480" source="../../../../../ext:/rwk/tilesets/steel.json"/>
+ <tileset firstgid="527" source="../../../../../ext:/rwk/tilesets/velcro.json"/>
+ <tileset firstgid="574" source="../../../../../ext:/rwk/tilesets/warn.json"/>
  <layer id="1" name="map" width="516" height="275">
   <data encoding="base64" compression="zlib"/>
  </layer>

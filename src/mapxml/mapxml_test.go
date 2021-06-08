@@ -1,7 +1,6 @@
 package mapxml
 
 import (
-	// "fmt"
 	"fmt"
 	"io/ioutil"
 	"testing"
@@ -18,7 +17,7 @@ func check(e error) {
 func TestReadTiledMap(t *testing.T) {
 	dat, err := ioutil.ReadFile(fullTestFile)
 	check(err)
-	tm := readTiledMap(dat)
+	tm := ReadTiledMap(dat)
 
 	if len(tm.Properties.Properties) != 6 {
 		t.Error(`not 6 properties`)
@@ -29,6 +28,7 @@ func TestReadTiledMap(t *testing.T) {
 	if !tm.Infinite {
 		t.Error(`not infinite`)
 	}
-	fmt.Printf(`The name %v`,tm.Tilesets[0].Name)
+	fmt.Printf(`The name %v`, tm.Tilesets[0].Name)
 
+	
 }

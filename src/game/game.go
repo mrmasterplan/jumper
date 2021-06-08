@@ -26,7 +26,7 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 	return 320, 240
 }
 
-func oldmain() {
+func main() {
 	ebiten.SetWindowSize(640, 480)
 	ebiten.SetWindowTitle("my title")
 	game := &Game{}
