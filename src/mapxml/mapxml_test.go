@@ -28,7 +28,9 @@ func TestReadTiledMap(t *testing.T) {
 	if !tm.Infinite {
 		t.Error(`not infinite`)
 	}
-	fmt.Printf(`The name %v`, tm.Tilesets[0].Name)
+	for _,ts :=range tm.Tilesets {
+		fmt.Printf("TileSet name \"%v\"\n", ts)
+	}
 
 	
 }

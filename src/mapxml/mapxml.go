@@ -6,6 +6,8 @@ package mapxml
 
 import (
 	"encoding/xml"
+	"fmt"
+	"strconv"
 )
 
 type TMXAnyLayer interface{}
@@ -97,12 +99,216 @@ type TiledMap struct {
 	// Can contain any number: :ref:`tmx-tileset`, :ref:`tmx-layer`,
 	// :ref:`tmx-objectgroup`, :ref:`tmx-imagelayer`, :ref:`tmx-group` (since 1.0),
 	// :ref:`tmx-editorsettings` (since 1.3)
-	Tilesets  []TMXTileset `xml:"tileset"`
-	LayerData string       `xml:",innerxml"`
-	Layers    []TMXAnyLayer
+	Tilesets []TMXTileset `xml:"tileset"`
+	// LayerData string       `xml:",innerxml"`
+	Layers []TMXAnyLayer
+}
+
+func (tm *TiledMap) getName() string {
+	return tm.XMLName.Local
+}
+
+func UnmarshalLayersTilesetProperties(d *xml.Decoder, endTag string) (layers []TMXAnyLayer, tilesets []TMXTileset, properties TMXProperties, err error) {
+	for {
+		var token xml.Token
+		token, err = d.Token()
+		if err != nil {
+			return nil, nil, properties, err
+		}
+		if token == nil {
+			break
+		}
+		switch token.(type) {
+		case xml.StartElement:
+			start := token.(xml.StartElement)
+			switch start.Name.Local {
+			case "layer":
+				layer := TMXLayer{}
+
+				if err = d.DecodeElement(&layer, &start); err != nil {
+					return nil, nil, properties, err
+				}
+				layers = append(layers, layer)
+
+			case "group":
+				layer := TMXGroup{}
+
+				if err = d.DecodeElement(&layer, &start); err != nil {
+					return nil, nil, properties, err
+				}
+				layers = append(layers, layer)
+
+			case "objectgroup":
+				layer := TMXObjectGroup{}
+				if err = d.DecodeElement(&layer, &start); err != nil {
+					return nil, nil, properties, err
+				}
+				layers = append(layers, layer)
+
+			case "imagelayer":
+				layer := TMXImageLayer{}
+
+				if err = d.DecodeElement(&layer, &start); err != nil {
+					return nil, nil, properties, err
+				}
+				layers = append(layers, layer)
+			case "tileset":
+				tileset := TMXTileset{}
+
+				if err = d.DecodeElement(&tileset, &start); err != nil {
+					return nil, nil, properties, err
+				}
+				tilesets = append(tilesets, tileset)
+			case "properties":
+				if err = d.DecodeElement(&properties, &start); err != nil {
+					return nil, nil, properties, err
+				}
+			case "editorsettings":
+				// ignore
+			default:
+				panic(fmt.Sprintf("Unknown tag name in map: %v", start.Name))
+			}
+		case xml.EndElement:
+			if token.(xml.EndElement).Name.Local == endTag {
+				// we are done parsing the map
+				return layers, tilesets, properties, nil
+			}
+		case xml.CharData:
+			//panic(fmt.Sprintf("Unexpected CharData map: %v", string(startToken.(xml.CharData))))
+		case xml.Comment:
+			//panic(fmt.Sprintf("Unexpected Comment map: %v", string(startToken.(xml.Comment))))
+		case xml.ProcInst:
+			panic(fmt.Errorf("unexpected ProcInst map: %v", token.(xml.ProcInst)))
+		case xml.Directive:
+			panic(fmt.Errorf("unexpected Directive map: %v", token.(xml.Directive)))
+		default:
+			panic(`Unexpected token type. Malformed Map XML`)
+		}
+	}
+	return layers, tilesets, properties, fmt.Errorf(`no end tag found`)
+}
+
+func (tm *TiledMap) UnmarshalXML(d *xml.Decoder, start xml.StartElement) (err error) {
+
+	if start.Name.Local != "map" {
+		return fmt.Errorf(`invalid xml name for TiledMap: "%v"`, start.Name)
+	}
+	tm.XMLName = start.Name
+
+	for _, attr := range start.Attr {
+		switch attr.Name.Local {
+		// -  **version:** The TMX format version. Was "1.0" so far, and will be
+		//    incremented to match minor Tiled releases.
+		case "version":
+			tm.Version = attr.Value
+
+			// -  **tiledversion:** The Tiled version used to save the file (since Tiled
+			//    1.0.1). May be a date (for snapshot builds). (optional)
+		case "tiledversion":
+			tm.TiledVersion = attr.Value
+
+			// -  **orientation:** Map orientation. Tiled supports "orthogonal",
+			//    "isometric", "staggered" and "hexagonal" (since 0.11).
+		case "orientation":
+			tm.Orientation = attr.Value
+
+			// -  **renderorder:** The order in which tiles on tile layers are rendered.
+			//    Valid values are ``right-down`` (the default), ``right-up``,
+			//    ``left-down`` and ``left-up``. In all cases, the map is drawn
+			//    row-by-row. (only supported for orthogonal maps at the moment)
+		case "renderorder":
+			tm.RenderOrder = attr.Value
+
+			// -  **compressionlevel:** The compression level to use for tile layer data
+			//    (defaults to -1, which means to use the algorithm default).
+		case "compressionlevel":
+			tm.CompressionLevel = attr.Value
+
+			// -  **width:** The map width in tiles.
+		case "width":
+			tm.Width, err = strconv.Atoi(attr.Value)
+			if err != nil {
+				return err
+			}
+
+			// -  **height:** The map height in tiles.
+		case "height":
+			tm.Height, err = strconv.Atoi(attr.Value)
+			if err != nil {
+				return err
+			}
+
+			// -  **tilewidth:** The width of a tile.
+		case "tilewidth":
+			tm.TileWidth, err = strconv.Atoi(attr.Value)
+			if err != nil {
+				return err
+			}
+
+			// -  **tileheight:** The height of a tile.
+		case "tileheight":
+			tm.TileHeight, err = strconv.Atoi(attr.Value)
+			if err != nil {
+				return err
+			}
+
+			// -  **hexsidelength:** Only for hexagonal maps. Determines the width or
+			//    height (depending on the staggered axis) of the tile's edge, in
+			//    pixels.
+			// -  **staggeraxis:** For staggered and hexagonal maps, determines which axis
+			//    ("x" or "y") is staggered. (since 0.11)
+			// -  **staggerindex:** For staggered and hexagonal maps, determines whether
+			//    the "even" or "odd" indexes along the staggered axis are shifted.
+			//    (since 0.11)
+			// -  **backgroundcolor:** The background color of the map. (optional, may
+			//    include alpha value since 0.15 in the form ``#AARRGGBB``. Defaults to
+			//    fully transparent.)
+			// -  **nextlayerid:** Stores the next available ID for new layers. This
+			//    number is stored to prevent reuse of the same ID after layers have
+			//    been removed. (since 1.2) (defaults to the highest layer id in the file
+			//    + 1)
+		case "nextlayerid":
+			tm.NextLayerId, err = strconv.Atoi(attr.Value)
+			if err != nil {
+				return err
+			}
+
+			// -  **nextobjectid:** Stores the next available ID for new objects. This
+			//    number is stored to prevent reuse of the same ID after objects have
+			//    been removed. (since 0.11) (defaults to the highest object id in the file
+			//    + 1)
+		case "nextobjectid":
+			tm.NextObjectId, err = strconv.Atoi(attr.Value)
+			if err != nil {
+				return err
+			}
+
+			// -  **infinite:** Whether this map is infinite. An infinite map has no fixed
+			//    size and can grow in all directions. Its layer data is stored in chunks.
+			//    (``0`` for false, ``1`` for true, defaults to 0)
+		case "infinite":
+			tm.Infinite, err = strconv.ParseBool(attr.Value)
+			if err != nil {
+				return err
+			}
+		default:
+			// do nothing. some attributes are ignored.
+		}
+	}
+	tm.Layers, tm.Tilesets, tm.Properties, err = UnmarshalLayersTilesetProperties(d, "map")
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (tm *TiledMap) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	return nil
 }
 
 type TMXEditorSettings struct {
+
 	// 	<editorsettings>
 	// ----------------
 	XMLName xml.Name `xml:"editorsettings"`
@@ -127,32 +333,43 @@ type TMXChunkSize struct {
 type TMXTileset struct {
 	// 	<tileset>
 	// ---------
+	XMLName xml.Name `xml:"tileset"`
 
 	// -  **firstgid:** The first global tile ID of this tileset (this global ID
 	//    maps to the first tile in this tileset).
+	FirstGID int `xml:"firstgid,attr"`
 	// -  **source:** If this tileset is stored in an external TSX (Tile Set XML)
 	//    file, this attribute refers to that file. That TSX file has the same
 	//    structure as the ``<tileset>`` element described here. (There is the
 	//    firstgid attribute missing and this source attribute is also not
 	//    there. These two attributes are kept in the TMX map, since they are
 	//    map specific.)
+	Source string `xml:"source,attr"`
 	// -  **name:** The name of this tileset.
+	Name string `xml:"name,attr"`
 	// -  **tilewidth:** The (maximum) width of the tiles in this tileset.
+	TileWidth int `xml:"tilewidth,attr"`
 	// -  **tileheight:** The (maximum) height of the tiles in this tileset.
+	TileHeight int `xml:"tileheight,attr"`
 	// -  **spacing:** The spacing in pixels between the tiles in this tileset
 	//    (applies to the tileset image, defaults to 0)
+	Spacing int `xml:"spacing,attr"`
 	// -  **margin:** The margin around the tiles in this tileset (applies to the
 	//    tileset image, defaults to 0)
+	Margin int `xml:"margin,attr"`
 	// -  **tilecount:** The number of tiles in this tileset (since 0.13)
+	TileCount int `xml:"tilecount,attr"`
 	// -  **columns:** The number of tile columns in the tileset. For image
 	//    collection tilesets it is editable and is used when displaying the
 	//    tileset. (since 0.15)
+	Columns int `xml:"columns,attr"`
 	// -  **objectalignment:** Controls the alignment for tile objects.
 	//    Valid values are ``unspecified``, ``topleft``, ``top``, ``topright``,
 	//    ``left``, ``center``, ``right``, ``bottomleft``, ``bottom`` and
 	//    ``bottomright``. The default value is ``unspecified``, for compatibility
 	//    reasons. When unspecified, tile objects use ``bottomleft`` in orthogonal mode
 	//    and ``bottom`` in isometric mode. (since 1.4)
+	ObjectAlignment string `xml:"objectalignment,attr"`
 
 	// If there are multiple ``<tileset>`` elements, they are in ascending
 	// order of their ``firstgid`` attribute. The first tileset always has a
@@ -166,30 +383,31 @@ type TMXTileset struct {
 	// Can contain at most one: :ref:`tmx-image`, :ref:`tmx-tileoffset`,
 	// :ref:`tmx-grid` (since 1.0), :ref:`tmx-properties`, :ref:`tmx-terraintypes`,
 	// :ref:`tmx-wangsets` (since 1.1), :ref:`tmx-tileset-transformations` (since 1.5)
+	Image           TMXImage           `xml:"image"`
+	TileOffset      TMXTileOffset      `xml:"tileoffset"`
+	Grid            TMXGrid            `xml:"grid"`
+	Properties      TMXProperties      `xml:"properties"`
+	TerrainType     TMXTerrainTypes    `xml:"terraintypes"`
+	Wangsets        TMXWangSets        `xml:"wangsets"`
+	Transformations TMXTransformations `xml:"transformations"`
 
 	// Can contain any number: :ref:`tmx-tileset-tile`
-
-	XMLName xml.Name `xml:"tileset"`
-
-	FirstGID        int    `xml:"firstgid,attr"`
-	Source          string `xml:"source,attr"`
-	Name            string `xml:"name,attr"`
-	TileHeight      int    `xml:"tileheight,attr"`
-	TileWidth       int    `xml:"tilewidth,attr"`
-	Spacing         int    `xml:"spacing,attr"`
-	Margin          int    `xml:"margin,attr"`
-	TileCount       int    `xml:"tilecount,attr"`
-	Columns         int    `xml:"columns,attr"`
-	ObjectAlignment string `xml:"objectalignment,attr"`
+	Tiles []TMXTileInTileset `xml:"tile"`
 }
 
-type TMXTilesetOffset struct {
+func (tm *TMXTileset) getName() string {
+	return tm.XMLName.Local
+}
+
+type TMXTileOffset struct {
 	// 	<tileoffset>
 	// ~~~~~~~~~~~~
 	XMLName xml.Name `xml:"tileoffset"`
 
 	// -  **x:** Horizontal offset in pixels. (defaults to 0)
+	X int `xml:"x,attr"`
 	// -  **y:** Vertical offset in pixels (positive is down, defaults to 0)
+	Y int `xml:"y,attr"`
 
 	// This element is used to specify an offset in pixels, to be applied when
 	// drawing a tile from the related tileset. When not present, no offset is
@@ -240,7 +458,7 @@ type TMXImage struct {
 
 }
 
-type TMXTerrainType struct {
+type TMXTerrainTypes struct {
 	// 	<terraintypes>
 	// ~~~~~~~~~~~~~~
 	XMLName xml.Name `xml:"terraintypes"`
@@ -287,19 +505,26 @@ type TMXTileInTileset struct {
 	XMLName xml.Name `xml:"tile"`
 
 	// -  **id:** The local tile ID within its tileset.
+	Id int `xml:"id,attr"`
 	// -  **type:** The type of the tile. Refers to an object type and is used
 	//    by tile objects. (optional) (since 1.0)
+	Type string `xml:"type,attr"`
 	// -  **terrain:** Defines the terrain type of each corner of the tile,
 	//    given as comma-separated indexes in the terrain types array in the
 	//    order top-left, top-right, bottom-left, bottom-right. Leaving out a
 	//    value means that corner has no terrain. (optional)
+	Terrain string `xml:"terrain,attr"`
 	// -  **probability:** A percentage indicating the probability that this
 	//    tile is chosen when it competes with others while editing with the
 	//    terrain tool. (defaults to 0)
+	Probability string `xml:"probablility,attr"`
 
 	// Can contain at most one: :ref:`tmx-properties`, :ref:`tmx-image` (since
 	// 0.9), :ref:`tmx-objectgroup`, :ref:`tmx-animation`
-
+	Properties  TMXProperties  `xml:"properties"`
+	Image       TMXImage       `xml:"image"`
+	Objectgroup TMXObjectGroup `xml:"objectgroup"`
+	Animation   TMXAnimation   `xml:"animation"`
 }
 
 type TMXAnimation struct {
@@ -323,11 +548,10 @@ type TMXFrame struct {
 
 	// -  **tileid:** The local ID of a tile within the parent
 	//    :ref:`tmx-tileset`.
+	TileId int `xml:"tileid,attr"`
 	// -  **duration:** How long (in milliseconds) this frame should be displayed
 	//    before advancing to the next frame.
-
-	// .. _tmx-wangsets:
-
+	Duration int `xml:"duration,attr"`
 }
 
 type TMXWangSets struct {
@@ -411,23 +635,41 @@ type TMXLayer struct {
 	// -  **id:** Unique ID of the layer. Each layer that added to a map gets
 	//    a unique id. Even if a layer is deleted, no layer ever gets the same
 	//    ID. Can not be changed in Tiled. (since Tiled 1.2)
+	Id int `xml:"id,attr"`
 	// -  **name:** The name of the layer. (defaults to "")
+	Name string `xml:"name,attr"`
 	// -  *x:* The x coordinate of the layer in tiles. Defaults to 0 and can not be changed in Tiled.
+	X int `xml:"x,attr"`
 	// -  *y:* The y coordinate of the layer in tiles. Defaults to 0 and can not be changed in Tiled.
+	Y int `xml:"y,attr"`
 	// -  **width:** The width of the layer in tiles. Always the same as the map width for fixed-size maps.
+	Width int `xml:"width,attr"`
 	// -  **height:** The height of the layer in tiles. Always the same as the map height for fixed-size maps.
+	Height int `xml:"height,attr"`
 	// -  **opacity:** The opacity of the layer as a value from 0 to 1. Defaults to 1.
+	Opacity float32 `xml:"opacity,attr"`
 	// -  **visible:** Whether the layer is shown (1) or hidden (0). Defaults to 1.
+	Visible bool `xml:"visible,attr"`
 	// -  **tintcolor:** A :ref:`tint color <tint-color>` that is multiplied with any tiles drawn by this layer in ``#AARRGGBB`` or ``#RRGGBB`` format (optional).
+	TintColor string `xml:"tintcolor,attr"`
 	// -  **offsetx:** Horizontal offset for this layer in pixels. Defaults to 0.
 	//    (since 0.14)
+	OffsetX int `xml:"offsetx,attr"`
 	// -  **offsety:** Vertical offset for this layer in pixels. Defaults to 0.
 	//    (since 0.14)
+	OffsetY int `xml:"offsety,attr"`
 	// -  **parallaxx:** Horizontal :ref:`parallax factor <parallax-factor>` for this layer. Defaults to 1. (since 1.5)
+	ParallaxX float32 `xml:"parallaxx,attr"`
 	// -  **parallaxy:** Vertical :ref:`parallax factor <parallax-factor>` for this layer. Defaults to 1. (since 1.5)
+	ParallaxY float32 `xml:"parallaxy,attr"`
 
 	// Can contain at most one: :ref:`tmx-properties`, :ref:`tmx-data`
+	Properties TMXProperties `xml:"properties"`
+	Data       TMXData       `xml:"data"`
+}
 
+func (tm *TMXLayer) getName() string {
+	return tm.XMLName.Local
 }
 
 type TMXData struct {
@@ -540,6 +782,10 @@ type TMXObjectGroup struct {
 
 	// Can contain any number: :ref:`tmx-object`
 
+}
+
+func (tm *TMXObjectGroup) getName() string {
+	return tm.XMLName.Local
 }
 
 type TMXObject struct {
@@ -705,35 +951,129 @@ type TMXImageLayer struct {
 
 }
 
+func (tm *TMXImageLayer) getName() string {
+	return tm.XMLName.Local
+}
+
 type TMXGroup struct {
 	// <group>
 	// -------
-	XMLName xml.Name `xml:"group"`
+	XMLName xml.Name
 
 	// -  **id:** Unique ID of the layer. Each layer that added to a map gets
 	//    a unique id. Even if a layer is deleted, no layer ever gets the same
 	//    ID. Can not be changed in Tiled. (since Tiled 1.2)
+	Id int
 	// -  **name:** The name of the group layer. (defaults to "")
+	Name string
 	// -  **offsetx:** Horizontal offset of the group layer in pixels. (defaults to
 	//    0)
+	OffsetX int
 	// -  **offsety:** Vertical offset of the group layer in pixels. (defaults to
 	//    0)
+	OffsetY int
 	// -  **opacity:** The opacity of the layer as a value from 0 to 1. (defaults to
 	//    1)
+	Opacity float64
 	// -  **visible:** Whether the layer is shown (1) or hidden (0). (defaults to 1)
+	Visible bool
 	// -  **tintcolor:** A color that is multiplied with any graphics drawn by any child layers, in ``#AARRGGBB`` or ``#RRGGBB`` format (optional).
-
+	TintColor string
 	// A group layer, used to organize the layers of the map in a hierarchy.
 	// Its attributes ``offsetx``, ``offsety``, ``opacity``, ``visible`` and
 	// ``tintcolor`` recursively affect child layers.
 
 	// Can contain at most one: :ref:`tmx-properties`
-	Properties TMXProperties `xml:"properties"`
+	Properties TMXProperties
 
 	// Can contain any number: :ref:`tmx-layer`,
 	// :ref:`tmx-objectgroup`, :ref:`tmx-imagelayer`, :ref:`tmx-group`
-	LayerData string `xml:",innerxml"`
-	Layers    []TMXAnyLayer
+	Layers []TMXAnyLayer
+}
+
+func (tm *TMXGroup) getName() string {
+	return tm.XMLName.Local
+}
+
+func (gr *TMXGroup) UnmarshalXML(d *xml.Decoder, start xml.StartElement) (err error) {
+
+	// <group>
+	// -------
+	if start.Name.Local != "group" {
+		return fmt.Errorf(`invalid xml name for TiledMap: "%v"`, start.Name)
+	}
+	gr.XMLName = start.Name
+
+	for _, attr := range start.Attr {
+		switch attr.Name.Local {
+		// -  **id:** Unique ID of the layer. Each layer that added to a map gets
+		//    a unique id. Even if a layer is deleted, no layer ever gets the same
+		//    ID. Can not be changed in Tiled. (since Tiled 1.2)
+		case "id":
+			gr.Id, err = strconv.Atoi(attr.Value)
+			if err != nil {
+				return err
+			}
+
+			// -  **name:** The name of the group layer. (defaults to "")
+		case "name":
+			gr.Name = attr.Value
+			// -  **offsetx:** Horizontal offset of the group layer in pixels. (defaults to
+			//    0)
+		case "offsetx":
+			gr.OffsetX, err = strconv.Atoi(attr.Value)
+			if err != nil {
+				return err
+			}
+
+			// -  **offsety:** Vertical offset of the group layer in pixels. (defaults to
+			//    0)
+		case "offsety":
+			gr.OffsetY, err = strconv.Atoi(attr.Value)
+			if err != nil {
+				return err
+			}
+
+			// -  **opacity:** The opacity of the layer as a value from 0 to 1. (defaults to
+			//    1)
+		case "opacity":
+			gr.Opacity, err = strconv.ParseFloat(attr.Value, 32)
+			if err != nil {
+				return err
+			}
+
+			// -  **visible:** Whether the layer is shown (1) or hidden (0). (defaults to 1)
+		case "visible":
+			gr.Visible, err = strconv.ParseBool(attr.Value)
+			if err != nil {
+				return err
+			}
+
+			// -  **tintcolor:** A color that is multiplied with any graphics drawn by any child layers, in ``#AARRGGBB`` or ``#RRGGBB`` format (optional).
+		case "tintcolor":
+			gr.TintColor = attr.Value
+
+			// A group layer, used to organize the layers of the map in a hierarchy.
+			// Its attributes ``offsetx``, ``offsety``, ``opacity``, ``visible`` and
+			// ``tintcolor`` recursively affect child layers.
+		default:
+			// do nothing. some attributes are ignored.
+		}
+	}
+	var tilesets []TMXTileset
+	gr.Layers, tilesets, gr.Properties, err = UnmarshalLayersTilesetProperties(d, "map")
+	if err != nil {
+		return err
+	}
+	if tilesets != nil {
+		return fmt.Errorf(`Tileset tag found in group layer.`)
+	}
+
+	return nil
+}
+
+func (tm *TMXGroup) MarshalXML(d *xml.Encoder, start xml.StartElement) (err error) {
+	return nil
 }
 
 type TMXProperties struct {
@@ -748,6 +1088,10 @@ type TMXProperties struct {
 
 	// Can contain any number: :ref:`tmx-property`
 	Properties []TMXProperty `xml:"property"`
+}
+
+func (tm *TMXProperties) getName() string {
+	return tm.XMLName.Local
 }
 
 type TMXProperty struct {
