@@ -12,11 +12,7 @@ import (
 
 type TMXAnyLayer interface{}
 
-type TiledMap struct {
-	// 	<map>
-	// -----
-	XMLName xml.Name `xml:"map"`
-
+type tmxTiledMapAttrs struct {
 	// -  **version:** The TMX format version. Was "1.0" so far, and will be
 	//    incremented to match minor Tiled releases.
 	Version string `xml:"version,attr"`
@@ -40,10 +36,9 @@ type TiledMap struct {
 	CompressionLevel string `xml:"compressionlevel,attr"`
 
 	// -  **width:** The map width in tiles.
-	Width int `xml:"width,attr"`
 
 	// -  **height:** The map height in tiles.
-	Height int `xml:"height,attr"`
+	tmxWidthHeight
 
 	// -  **tilewidth:** The width of a tile.
 	TileWidth int `xml:"tilewidth,attr"`
@@ -83,6 +78,14 @@ type TiledMap struct {
 	// grid size of the map. The individual tiles may have different sizes.
 	// Larger tiles will extend at the top and right (anchored to the bottom
 	// left).
+}
+
+type TiledMap struct {
+	// 	<map>
+	// -----
+	XMLName xml.Name `xml:"map"`
+
+	tmxTiledMapAttrs
 
 	// A map contains three different kinds of layers. Tile layers were once
 	// the only type, and are simply called ``layer``, object layers have the
@@ -193,6 +196,7 @@ func (tm *TiledMap) UnmarshalXML(d *xml.Decoder, start xml.StartElement) (err er
 	if start.Name.Local != "map" {
 		return fmt.Errorf(`invalid xml name for TiledMap: "%v"`, start.Name)
 	}
+
 	tm.XMLName = start.Name
 
 	for _, attr := range start.Attr {
@@ -330,299 +334,6 @@ type TMXChunkSize struct {
 
 }
 
-type TMXTileset struct {
-	// 	<tileset>
-	// ---------
-	XMLName xml.Name `xml:"tileset"`
-
-	// -  **firstgid:** The first global tile ID of this tileset (this global ID
-	//    maps to the first tile in this tileset).
-	FirstGID int `xml:"firstgid,attr"`
-	// -  **source:** If this tileset is stored in an external TSX (Tile Set XML)
-	//    file, this attribute refers to that file. That TSX file has the same
-	//    structure as the ``<tileset>`` element described here. (There is the
-	//    firstgid attribute missing and this source attribute is also not
-	//    there. These two attributes are kept in the TMX map, since they are
-	//    map specific.)
-	Source string `xml:"source,attr"`
-	// -  **name:** The name of this tileset.
-	Name string `xml:"name,attr"`
-	// -  **tilewidth:** The (maximum) width of the tiles in this tileset.
-	TileWidth int `xml:"tilewidth,attr"`
-	// -  **tileheight:** The (maximum) height of the tiles in this tileset.
-	TileHeight int `xml:"tileheight,attr"`
-	// -  **spacing:** The spacing in pixels between the tiles in this tileset
-	//    (applies to the tileset image, defaults to 0)
-	Spacing int `xml:"spacing,attr"`
-	// -  **margin:** The margin around the tiles in this tileset (applies to the
-	//    tileset image, defaults to 0)
-	Margin int `xml:"margin,attr"`
-	// -  **tilecount:** The number of tiles in this tileset (since 0.13)
-	TileCount int `xml:"tilecount,attr"`
-	// -  **columns:** The number of tile columns in the tileset. For image
-	//    collection tilesets it is editable and is used when displaying the
-	//    tileset. (since 0.15)
-	Columns int `xml:"columns,attr"`
-	// -  **objectalignment:** Controls the alignment for tile objects.
-	//    Valid values are ``unspecified``, ``topleft``, ``top``, ``topright``,
-	//    ``left``, ``center``, ``right``, ``bottomleft``, ``bottom`` and
-	//    ``bottomright``. The default value is ``unspecified``, for compatibility
-	//    reasons. When unspecified, tile objects use ``bottomleft`` in orthogonal mode
-	//    and ``bottom`` in isometric mode. (since 1.4)
-	ObjectAlignment string `xml:"objectalignment,attr"`
-
-	// If there are multiple ``<tileset>`` elements, they are in ascending
-	// order of their ``firstgid`` attribute. The first tileset always has a
-	// ``firstgid`` value of 1. Since Tiled 0.15, image collection tilesets do
-	// not necessarily number their tiles consecutively since gaps can occur
-	// when removing tiles.
-
-	// Image collection tilesets have no ``<image>`` tag. Instead, each tile has
-	// an ``<image>`` tag.
-
-	// Can contain at most one: :ref:`tmx-image`, :ref:`tmx-tileoffset`,
-	// :ref:`tmx-grid` (since 1.0), :ref:`tmx-properties`, :ref:`tmx-terraintypes`,
-	// :ref:`tmx-wangsets` (since 1.1), :ref:`tmx-tileset-transformations` (since 1.5)
-	Image           TMXImage           `xml:"image"`
-	TileOffset      TMXTileOffset      `xml:"tileoffset"`
-	Grid            TMXGrid            `xml:"grid"`
-	Properties      TMXProperties      `xml:"properties"`
-	TerrainType     TMXTerrainTypes    `xml:"terraintypes"`
-	Wangsets        TMXWangSets        `xml:"wangsets"`
-	Transformations TMXTransformations `xml:"transformations"`
-
-	// Can contain any number: :ref:`tmx-tileset-tile`
-	Tiles []TMXTileInTileset `xml:"tile"`
-}
-
-func (tm *TMXTileset) getName() string {
-	return tm.XMLName.Local
-}
-
-type TMXTileOffset struct {
-	// 	<tileoffset>
-	// ~~~~~~~~~~~~
-	XMLName xml.Name `xml:"tileoffset"`
-
-	// -  **x:** Horizontal offset in pixels. (defaults to 0)
-	X int `xml:"x,attr"`
-	// -  **y:** Vertical offset in pixels (positive is down, defaults to 0)
-	Y int `xml:"y,attr"`
-
-	// This element is used to specify an offset in pixels, to be applied when
-	// drawing a tile from the related tileset. When not present, no offset is
-	// applied.
-
-}
-
-type TMXGrid struct {
-	// 	<grid>
-	// ~~~~~~
-	XMLName xml.Name `xml:"grid"`
-
-	// -  **orientation:** Orientation of the grid for the tiles in this
-	//    tileset (``orthogonal`` or ``isometric``, defaults to ``orthogonal``)
-	// -  **width:** Width of a grid cell
-	// -  **height:** Height of a grid cell
-
-	// This element is only used in case of isometric orientation, and
-	// determines how tile overlays for terrain and collision information are
-	// rendered.
-
-}
-
-type TMXImage struct {
-	// 	<image>
-	// ~~~~~~~
-	XMLName xml.Name `xml:"image"`
-
-	// -  **format:** Used for embedded images, in combination with a ``data``
-	//    child element. Valid values are file extensions like ``png``,
-	//    ``gif``, ``jpg``, ``bmp``, etc.
-	// -  *id:* Used by some versions of Tiled Java. Deprecated and unsupported.
-	// -  **source:** The reference to the tileset image file (Tiled supports most
-	//    common image formats). Only used if the image is not embedded.
-	// -  **trans:** Defines a specific color that is treated as transparent
-	//    (example value: "#FF00FF" for magenta). Including the "#" is optional
-	//    and Tiled leaves it out for compatibility reasons. (optional)
-	// -  **width:** The image width in pixels (optional, used for tile index
-	//    correction when the image changes)
-	// -  **height:** The image height in pixels (optional)
-
-	// Note that it is not currently possible to use Tiled to create maps with
-	// embedded image data, even though the TMX format supports this. It is
-	// possible to create such maps using ``libtiled`` (Qt/C++) or
-	// `tmxlib <https://pypi.python.org/pypi/tmxlib>`__ (Python).
-
-	// Can contain at most one: :ref:`tmx-data`
-
-}
-
-type TMXTerrainTypes struct {
-	// 	<terraintypes>
-	// ~~~~~~~~~~~~~~
-	XMLName xml.Name `xml:"terraintypes"`
-
-	// This element defines an array of terrain types, which can be referenced
-	// from the ``terrain`` attribute of the ``tile`` element.
-
-	// Can contain any number: :ref:`tmx-terrain`
-
-}
-
-type TMXTerrain struct {
-	// 	<terrain>
-	// ^^^^^^^^^
-	XMLName xml.Name `xml:"terrain"`
-
-	// -  **name:** The name of the terrain type.
-	// -  **tile:** The local tile-id of the tile that represents the terrain
-	//    visually.
-
-	// Can contain at most one: :ref:`tmx-properties`
-
-}
-
-type TMXTransformations struct {
-	// 	<transformations>
-	// ~~~~~~~~~~~~~~~~~
-	XMLName xml.Name `xml:"transformations"`
-
-	// This element is used to describe which transformations can be applied to the
-	// tiles (e.g. to extend a Wang set by transforming existing tiles).
-
-	// - **hflip:** Whether the tiles in this set can be flipped horizontally (default 0)
-	// - **vflip:** Whether the tiles in this set can be flipped vertically (default 0)
-	// - **rotate:** Whether the tiles in this set can be rotated in 90 degree increments (default 0)
-	// - **preferuntransformed:** Whether untransformed tiles remain preferred, otherwise
-	//   transformed tiles are used to produce more variations (default 0)
-
-}
-
-type TMXTileInTileset struct {
-	// 	<tile>
-	// ~~~~~~
-	XMLName xml.Name `xml:"tile"`
-
-	// -  **id:** The local tile ID within its tileset.
-	Id int `xml:"id,attr"`
-	// -  **type:** The type of the tile. Refers to an object type and is used
-	//    by tile objects. (optional) (since 1.0)
-	Type string `xml:"type,attr"`
-	// -  **terrain:** Defines the terrain type of each corner of the tile,
-	//    given as comma-separated indexes in the terrain types array in the
-	//    order top-left, top-right, bottom-left, bottom-right. Leaving out a
-	//    value means that corner has no terrain. (optional)
-	Terrain string `xml:"terrain,attr"`
-	// -  **probability:** A percentage indicating the probability that this
-	//    tile is chosen when it competes with others while editing with the
-	//    terrain tool. (defaults to 0)
-	Probability string `xml:"probablility,attr"`
-
-	// Can contain at most one: :ref:`tmx-properties`, :ref:`tmx-image` (since
-	// 0.9), :ref:`tmx-objectgroup`, :ref:`tmx-animation`
-	Properties  TMXProperties  `xml:"properties"`
-	Image       TMXImage       `xml:"image"`
-	Objectgroup TMXObjectGroup `xml:"objectgroup"`
-	Animation   TMXAnimation   `xml:"animation"`
-}
-
-type TMXAnimation struct {
-	// 	<animation>
-	// ^^^^^^^^^^^
-	XMLName xml.Name `xml:"animation"`
-
-	// Contains a list of animation frames.
-
-	// Each tile can have exactly one animation associated with it. In the
-	// future, there could be support for multiple named animations on a tile.
-
-	// Can contain any number: :ref:`tmx-frame`
-	Frames []TMXFrame `xml:"frame"`
-}
-
-type TMXFrame struct {
-	// 	<frame>
-	// '''''''
-	XMLName xml.Name `xml:"frame"`
-
-	// -  **tileid:** The local ID of a tile within the parent
-	//    :ref:`tmx-tileset`.
-	TileId int `xml:"tileid,attr"`
-	// -  **duration:** How long (in milliseconds) this frame should be displayed
-	//    before advancing to the next frame.
-	Duration int `xml:"duration,attr"`
-}
-
-type TMXWangSets struct {
-	// 	<wangsets>
-	// ~~~~~~~~~~
-	XMLName xml.Name `xml:"wangsets"`
-
-	// Contains the list of Wang sets defined for this tileset.
-
-	// Can contain any number: :ref:`tmx-wangset`
-
-}
-
-type TMXWangset struct {
-	// 	<wangset>
-	// ^^^^^^^^^
-	XMLName xml.Name `xml:"wangset"`
-
-	// Defines a list of corner colors and a list of edge colors, and any
-	// number of Wang tiles using these colors.
-
-	// -  **name:** The name of the Wang set.
-	// -  **tile:** The tile ID of the tile representing this Wang set.
-
-	// Can contain at most one: :ref:`tmx-properties`
-
-	// Can contain up to 255: :ref:`tmx-wangcolor` (since Tiled 1.5)
-
-	// Can contain any number: :ref:`tmx-wangtile`
-
-}
-
-type TMXWangColor struct {
-	// 	<wangcolor>
-	// '''''''''''
-	XMLName xml.Name `xml:"wangcolor"`
-
-	// A color that can be used to define the corner and/or edge of a Wang tile.
-
-	// -  **name:** The name of this color.
-	// -  **color:** The color in ``#RRGGBB`` format (example: ``#c17d11``).
-	// -  **tile:** The tile ID of the tile representing this color.
-	// -  **probability:** The relative probability that this color is chosen
-	//    over others in case of multiple options. (defaults to 0)
-
-	// Can contain at most one: :ref:`tmx-properties`
-
-}
-
-type TMXWangTile struct {
-	// 	<wangtile>
-	// ''''''''''
-	XMLName xml.Name `xml:"wangtile"`
-
-	// Defines a Wang tile, by referring to a tile in the tileset and
-	// associating it with a certain Wang ID.
-
-	// -  **tileid:** The tile ID.
-	// -  **wangid:** "The Wang ID, given by a comma-separated list of indexes
-	//    (starting from 1, because 0 means _unset_) referring to the Wang colors in
-	//    the Wang set in the following order: top, top right, right, bottom right,
-	//    bottom, bottom left, left, top left (since Tiled 1.5). Before Tiled 1.5, the
-	//    Wang ID was saved as a 32-bit unsigned integer stored in the format
-	//    ``0xCECECECE`` (where each C is a corner color and each E is an edge color,
-	//    in reverse order)."
-	// -  *hflip:* Whether the tile is flipped horizontally (removed in Tiled 1.5).
-	// -  *vflip:* Whether the tile is flipped vertically (removed in Tiled 1.5).
-	// -  *dflip:* Whether the tile is flipped on its diagonal (removed in Tiled 1.5).
-
-}
-
 type TMXLayer struct {
 	// 	<layer>
 	// -------
@@ -710,16 +421,12 @@ type TMXChunk struct {
 	XMLName xml.Name `xml:"chunk"`
 
 	// -  **x:** The x coordinate of the chunk in tiles.
-	X int `xml:"x,attr"`
-
 	// -  **y:** The y coordinate of the chunk in tiles.
-	Y int `xml:"y,attr"`
+	tmxXY
 
 	// -  **width:** The width of the chunk in tiles.
-	Width int `xml:"width,attr"`
-
 	// -  **height:** The height of the chunk in tiles.
-	Height int `xml:"height,attr"`
+	tmxWidthHeight
 
 	// This is currently added only for infinite maps. The contents of a chunk
 	// element is same as that of the ``data`` element, except it stores the
@@ -728,7 +435,7 @@ type TMXChunk struct {
 	// Can contain any number: :ref:`tmx-tilelayer-tile`
 	Tiles []TMXTileLayerTile `xml:"tile"`
 
-	Data string `xml:",innerxml"`
+	Data string `xml:",chardata"`
 }
 
 type TMXTileLayerTile struct {
@@ -786,141 +493,6 @@ type TMXObjectGroup struct {
 
 func (tm *TMXObjectGroup) getName() string {
 	return tm.XMLName.Local
-}
-
-type TMXObject struct {
-	// <object>
-	// ~~~~~~~~
-	XMLName xml.Name `xml:"object"`
-
-	// -  **id:** Unique ID of the object. Each object that is placed on a map gets
-	//    a unique id. Even if an object was deleted, no object gets the same
-	//    ID. Can not be changed in Tiled. (since Tiled 0.11)
-	// -  **name:** The name of the object. An arbitrary string. (defaults to "")
-	// -  **type:** The type of the object. An arbitrary string. (defaults to "")
-	// -  **x:** The x coordinate of the object in pixels. (defaults to 0)
-	// -  **y:** The y coordinate of the object in pixels. (defaults to 0)
-	// -  **width:** The width of the object in pixels. (defaults to 0)
-	// -  **height:** The height of the object in pixels. (defaults to 0)
-	// -  **rotation:** The rotation of the object in degrees clockwise around (x, y).
-	//    (defaults to 0)
-	// -  **gid:** A reference to a tile. (optional)
-	// -  **visible:** Whether the object is shown (1) or hidden (0). (defaults to
-	//    1)
-	// -  **template:** A reference to a :ref:`template file <tmx-template-files>`. (optional)
-
-	// While tile layers are very suitable for anything repetitive aligned to
-	// the tile grid, sometimes you want to annotate your map with other
-	// information, not necessarily aligned to the grid. Hence the objects have
-	// their coordinates and size in pixels, but you can still easily align
-	// that to the grid when you want to.
-
-	// You generally use objects to add custom information to your tile map,
-	// such as spawn points, warps, exits, etc.
-
-	// When the object has a ``gid`` set, then it is represented by the image
-	// of the tile with that global ID. The image alignment currently depends
-	// on the map orientation. In orthogonal orientation it's aligned to the
-	// bottom-left while in isometric it's aligned to the bottom-center. The
-	// image will rotate around the bottom-left or bottom-center, respectively.
-
-	// When the object has a ``template`` set, it will borrow all the
-	// properties from the specified template, properties saved with the object
-	// will have higher priority, i.e. they will override the template
-	// properties.
-
-	// Can contain at most one: :ref:`tmx-properties`, :ref:`tmx-ellipse` (since
-	// 0.9), :ref:`tmx-point` (since 1.1), :ref:`tmx-polygon`, :ref:`tmx-polyline`,
-	// :ref:`tmx-text` (since 1.0)
-
-}
-
-type TMXEllipse struct {
-	// <ellipse>
-	// ~~~~~~~~~
-	XMLName xml.Name `xml:"ellipse"`
-
-	// Used to mark an object as an ellipse. The existing ``x``, ``y``,
-	// ``width`` and ``height`` attributes are used to determine the size of
-	// the ellipse.
-}
-
-type TMXPoint struct {
-	// <point>
-	// ~~~~~~~~~
-	XMLName xml.Name `xml:"point"`
-
-	// Used to mark an object as a point. The existing ``x`` and ``y`` attributes
-	// are used to determine the position of the point.
-
-}
-
-type TMXPolygon struct {
-	// <polygon>
-	// ~~~~~~~~~
-	XMLName xml.Name `xml:"polygon"`
-
-	// -  **points:** A list of x,y coordinates in pixels.
-
-	// Each ``polygon`` object is made up of a space-delimited list of x,y
-	// coordinates. The origin for these coordinates is the location of the
-	// parent ``object``. By default, the first point is created as 0,0
-	// denoting that the point will originate exactly where the ``object`` is
-	// placed.
-
-}
-
-type TMXPolyLine struct {
-	// <polyline>
-	// ~~~~~~~~~~
-	XMLName xml.Name `xml:"polyline"`
-
-	// -  **points:** A list of x,y coordinates in pixels.
-
-	// A ``polyline`` follows the same placement definition as a ``polygon``
-	// object.
-
-}
-
-type TMXText struct {
-	// <text>
-	// ~~~~~~
-	XMLName xml.Name `xml:"text"`
-
-	// -  **fontfamily:** The font family used (defaults to "sans-serif")
-	// -  **pixelsize:** The size of the font in pixels (not using points,
-	//    because other sizes in the TMX format are also using pixels)
-	//    (defaults to 16)
-	// -  **wrap:** Whether word wrapping is enabled (1) or disabled (0).
-	//    (defaults to 0)
-	// -  **color:** Color of the text in ``#AARRGGBB`` or ``#RRGGBB`` format
-	//    (defaults to #000000)
-	// -  **bold:** Whether the font is bold (1) or not (0). (defaults to 0)
-	// -  **italic:** Whether the font is italic (1) or not (0). (defaults to 0)
-	// -  **underline:** Whether a line should be drawn below the text (1) or
-	//    not (0). (defaults to 0)
-	// -  **strikeout:** Whether a line should be drawn through the text (1) or
-	//    not (0). (defaults to 0)
-	// -  **kerning:** Whether kerning should be used while rendering the text
-	//    (1) or not (0). (defaults to 1)
-	// -  **halign:** Horizontal alignment of the text within the object
-	//    (``left``, ``center``, ``right`` or ``justify``, defaults to ``left``)
-	//    (since Tiled 1.2.1)
-	// -  **valign:** Vertical alignment of the text within the object (``top``
-	//    , ``center`` or ``bottom``, defaults to ``top``)
-
-	// Used to mark an object as a text object. Contains the actual text as
-	// character data.
-
-	// For alignment purposes, the bottom of the text is the descender height of
-	// the font, and the top of the text is the ascender height of the font. For
-	// example, ``bottom`` alignment of the word "cat" will leave some space below
-	// the text, even though it is unused for this word with most fonts. Similarly,
-	// ``top`` alignment of the word "cat" will leave some space above the "t" with
-	// most fonts, because this space is used for diacritics.
-
-	// If the text is larger than the object's bounds, it is clipped to the bounds
-	// of the object.
 }
 
 type TMXImageLayer struct {
@@ -1074,82 +646,4 @@ func (gr *TMXGroup) UnmarshalXML(d *xml.Decoder, start xml.StartElement) (err er
 
 func (tm *TMXGroup) MarshalXML(d *xml.Encoder, start xml.StartElement) (err error) {
 	return nil
-}
-
-type TMXProperties struct {
-	// <properties>
-	// ------------
-	XMLName xml.Name `xml:"properties"`
-
-	// Wraps any number of custom properties. Can be used as a child of the
-	// ``map``, ``tileset``, ``tile`` (when part of a ``tileset``),
-	// ``terrain``, ``wangset``, ``wangcolor``, ``layer``, ``objectgroup``,
-	// ``object``, ``imagelayer`` and ``group`` elements.
-
-	// Can contain any number: :ref:`tmx-property`
-	Properties []TMXProperty `xml:"property"`
-}
-
-func (tm *TMXProperties) getName() string {
-	return tm.XMLName.Local
-}
-
-type TMXProperty struct {
-	// <property>
-	// ~~~~~~~~~~
-	XMLName xml.Name `xml:"property"`
-
-	// -  **name:** The name of the property.
-	Name string `xml:"name,attr"`
-
-	// -  **type:** The type of the property. Can be ``string`` (default), ``int``,
-	//    ``float``, ``bool``, ``color``, ``file`` or ``object`` (since 0.16, with
-	//    ``color`` and ``file`` added in 0.17, and ``object`` added in 1.4).
-	Type string `xml:"type,attr"`
-
-	// -  **value:** The value of the property. (default string is "", default
-	//    number is 0, default boolean is "false", default color is #00000000, default
-	//    file is "." (the current file's parent directory))
-	Value      string `xml:"value,attr"`
-	InnerValue string `xml:",innerxml"`
-
-	// Boolean properties have a value of either "true" or "false".
-
-	// Color properties are stored in the format ``#AARRGGBB``.
-
-	// File properties are stored as paths relative from the location of the
-	// map file.
-
-	// Object properties can reference any object on the same map and are stored as an
-	// integer (the ID of the referenced object, or 0 when no object is referenced).
-	// When used on objects in the Tile Collision Editor, they can only refer to
-	// other objects on the same tile.
-
-	// When a string property contains newlines, the current version of Tiled
-	// will write out the value as characters contained inside the ``property``
-	// element rather than as the ``value`` attribute. It is possible that a
-	// future version of the TMX format will switch to always saving property
-	// values inside the element rather than as an attribute.
-
-}
-
-type TMXTemplate struct {
-	// <template>
-	// ~~~~~~~~~~
-
-	// The template root element contains the saved :ref:`map object <tmx-object>`
-	// and a :ref:`tileset <tmx-tileset>` element that points to an external
-	// tileset, if the object is a tile object.
-
-	// Example of a template file:
-
-	//    .. code:: xml
-
-	// 	<?xml version="1.0" encoding="UTF-8"?>
-	// 	<template>
-	// 	 <tileset firstgid="1" source="desert.tsx"/>
-	// 	 <object name="cactus" gid="31" width="81" height="101"/>
-	// 	</template>
-
-	// Can contain at most one: :ref:`tmx-tileset`, :ref:`tmx-object`
 }
