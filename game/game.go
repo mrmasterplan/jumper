@@ -3,13 +3,16 @@ package main
 import (
 	"fmt"
 
-	"github.com/hajimehoshi/ebiten"
-	"github.com/hajimehoshi/ebiten/ebitenutil"
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"github.com/mrmasterplan/jumper/src/config"
+
+
 )
 
 type Game struct{}
 
-func (g *Game) Update(*ebiten.Image) error {
+func (g *Game) Update() error {
 	// Update the logical state
 	return nil
 }
@@ -23,11 +26,11 @@ func (g *Game) Draw(screen *ebiten.Image) {
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
 	// Return the game screen size
-	return 320, 240
+	return config.GameWindow.X, config.GameWindow.Y
 }
 
 func main() {
-	ebiten.SetWindowSize(640, 480)
+	ebiten.SetWindowSize(config.GameWindowWorldView.X, config.GameWindowWorldView.Y)
 	ebiten.SetWindowTitle("my title")
 	game := &Game{}
 	if err := ebiten.RunGame(game); err != nil {

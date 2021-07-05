@@ -1,9 +1,23 @@
 package mapxml
 
 import (
+	"io/ioutil"
 	"encoding/xml"
 )
 
+func ReadTileSetFile(path string) (*TMXTileset,error) {
+	dat, err := ioutil.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+	tileset := &TMXTileset{}
+
+	if err := xml.Unmarshal(dat, tileset); err != nil {
+		panic(err)
+	}
+
+	return tileset, nil
+}
 
 type TMXTileset struct {
 	// 	<tileset>
@@ -12,7 +26,7 @@ type TMXTileset struct {
 
 	// -  **firstgid:** The first global tile ID of this tileset (this global ID
 	//    maps to the first tile in this tileset).
-	FirstGID int `xml:"firstgid,attr"`
+	FirstGID int `xml:"firstgid,attr,omitempty"`
 	// -  **source:** If this tileset is stored in an external TSX (Tile Set XML)
 	//    file, this attribute refers to that file. That TSX file has the same
 	//    structure as the ``<tileset>`` element described here. (There is the
@@ -58,20 +72,16 @@ type TMXTileset struct {
 	// Can contain at most one: :ref:`tmx-image`, :ref:`tmx-tileoffset`,
 	// :ref:`tmx-grid` (since 1.0), :ref:`tmx-properties`, :ref:`tmx-terraintypes`,
 	// :ref:`tmx-wangsets` (since 1.1), :ref:`tmx-tileset-transformations` (since 1.5)
-	Image           TMXImage           `xml:"image"`
-	TileOffset      TMXTileOffset      `xml:"tileoffset"`
-	Grid            TMXGrid            `xml:"grid"`
-	Properties      TMXProperties      `xml:"properties"`
-	TerrainType     TMXTerrainTypes    `xml:"terraintypes"`
-	Wangsets        TMXWangSets        `xml:"wangsets"`
-	Transformations TMXTransformations `xml:"transformations"`
+	Image       *TMXImage        `xml:"image"`
+	TileOffset  *TMXTileOffset   `xml:"tileoffset"`
+	Grid        *TMXGrid         `xml:"grid"`
+	Properties  *TMXProperties   `xml:"properties"`
+	TerrainType *TMXTerrainTypes `xml:"terraintypes"`
+	// Wangsets        *TMXWangSets
+	Transformations *TMXTransformations `xml:"transformations"`
 
 	// Can contain any number: :ref:`tmx-tileset-tile`
 	Tiles []TMXTileInTileset `xml:"tile"`
-}
-
-func (tm *TMXTileset) getName() string {
-	return tm.XMLName.Local
 }
 
 type TMXTileOffset struct {
@@ -80,9 +90,8 @@ type TMXTileOffset struct {
 	XMLName xml.Name `xml:"tileoffset"`
 
 	// -  **x:** Horizontal offset in pixels. (defaults to 0)
-	X int `xml:"x,attr"`
 	// -  **y:** Vertical offset in pixels (positive is down, defaults to 0)
-	Y int `xml:"y,attr"`
+	tmxXY
 
 	// This element is used to specify an offset in pixels, to be applied when
 	// drawing a tile from the related tileset. When not present, no offset is
@@ -97,8 +106,11 @@ type TMXGrid struct {
 
 	// -  **orientation:** Orientation of the grid for the tiles in this
 	//    tileset (``orthogonal`` or ``isometric``, defaults to ``orthogonal``)
+	Orientation string `xml:"orientation,attr"`
+
 	// -  **width:** Width of a grid cell
 	// -  **height:** Height of a grid cell
+	tmxWidthHeight
 
 	// This element is only used in case of isometric orientation, and
 	// determines how tile overlays for terrain and collision information are
@@ -114,15 +126,19 @@ type TMXImage struct {
 	// -  **format:** Used for embedded images, in combination with a ``data``
 	//    child element. Valid values are file extensions like ``png``,
 	//    ``gif``, ``jpg``, ``bmp``, etc.
+	Format string `xml:"format,attr"`
 	// -  *id:* Used by some versions of Tiled Java. Deprecated and unsupported.
 	// -  **source:** The reference to the tileset image file (Tiled supports most
 	//    common image formats). Only used if the image is not embedded.
+	Source string `xml:"source,attr"`
 	// -  **trans:** Defines a specific color that is treated as transparent
 	//    (example value: "#FF00FF" for magenta). Including the "#" is optional
 	//    and Tiled leaves it out for compatibility reasons. (optional)
+	Trans string `xml:"trans,attr"`
 	// -  **width:** The image width in pixels (optional, used for tile index
 	//    correction when the image changes)
 	// -  **height:** The image height in pixels (optional)
+	tmxWidthHeight
 
 	// Note that it is not currently possible to use Tiled to create maps with
 	// embedded image data, even though the TMX format supports this. It is
@@ -130,7 +146,7 @@ type TMXImage struct {
 	// `tmxlib <https://pypi.python.org/pypi/tmxlib>`__ (Python).
 
 	// Can contain at most one: :ref:`tmx-data`
-
+	Data *TMXData `xml:"data"`
 }
 
 type TMXTerrainTypes struct {
@@ -142,7 +158,7 @@ type TMXTerrainTypes struct {
 	// from the ``terrain`` attribute of the ``tile`` element.
 
 	// Can contain any number: :ref:`tmx-terrain`
-
+	Terrain []TMXTerrain `xml:"terrain"`
 }
 
 type TMXTerrain struct {
@@ -151,11 +167,14 @@ type TMXTerrain struct {
 	XMLName xml.Name `xml:"terrain"`
 
 	// -  **name:** The name of the terrain type.
+	Name string `xml:"name,attr"`
+
 	// -  **tile:** The local tile-id of the tile that represents the terrain
 	//    visually.
+	Tile int `xml:"tile,attr"`
 
 	// Can contain at most one: :ref:`tmx-properties`
-
+	tmxProperties
 }
 
 type TMXTransformations struct {
@@ -167,11 +186,14 @@ type TMXTransformations struct {
 	// tiles (e.g. to extend a Wang set by transforming existing tiles).
 
 	// - **hflip:** Whether the tiles in this set can be flipped horizontally (default 0)
+	Hflip int `xml:"hflip,attr"`
 	// - **vflip:** Whether the tiles in this set can be flipped vertically (default 0)
+	Vflip int `xml:"vflip,attr"`
 	// - **rotate:** Whether the tiles in this set can be rotated in 90 degree increments (default 0)
+	Rotate int `xml:"rotate,attr"`
 	// - **preferuntransformed:** Whether untransformed tiles remain preferred, otherwise
 	//   transformed tiles are used to produce more variations (default 0)
-
+	Preferuntransformed int `xml:"preferuntransformed,attr"`
 }
 
 type TMXTileInTileset struct {
@@ -196,10 +218,10 @@ type TMXTileInTileset struct {
 
 	// Can contain at most one: :ref:`tmx-properties`, :ref:`tmx-image` (since
 	// 0.9), :ref:`tmx-objectgroup`, :ref:`tmx-animation`
-	Properties  TMXProperties  `xml:"properties"`
-	Image       TMXImage       `xml:"image"`
-	Objectgroup TMXObjectGroup `xml:"objectgroup"`
-	Animation   TMXAnimation   `xml:"animation"`
+	Properties  TMXProperties   `xml:"properties"`
+	Image       *TMXImage       `xml:"image"`
+	Objectgroup *TMXObjectGroup `xml:"objectgroup"`
+	Animation   *TMXAnimation   `xml:"animation"`
 }
 
 type TMXAnimation struct {
