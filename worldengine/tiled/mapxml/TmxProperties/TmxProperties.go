@@ -1,14 +1,14 @@
-package mapxml
+package TmxProperties
 
 import (
 	"encoding/xml"
 )
 
-type tmxProperties struct {
-	Properties TMXProperties `xml:"properties"`
+type EmbedTmxProperties struct {
+	Properties TmxProperties `xml:"properties"`
 }
 
-type TMXProperties struct {
+type TmxProperties struct {
 	// <properties>
 	// ------------
 	XMLName xml.Name `xml:"properties"`
@@ -19,11 +19,11 @@ type TMXProperties struct {
 	// ``object``, ``imagelayer`` and ``group`` elements.
 
 	// Can contain any number: :ref:`tmx-property`
-	Properties []TMXProperty `xml:"property"`
+	Properties []TmxProperty `xml:"property"`
 }
 
 
-type TMXProperty struct {
+type TmxProperty struct {
 	// <property>
 	// ~~~~~~~~~~
 	XMLName xml.Name `xml:"property"`

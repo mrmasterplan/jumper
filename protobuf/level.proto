@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 package jumper.levels;
-// implementation of https://github.com/mapeditor/tiled/blob/master/docs/reference/json-map-format.rst
 
 option go_package = "protobuf/level";
 
@@ -33,11 +32,11 @@ message Point {
 
 message Hitbox {
     enum Hitbox_type {
-        rectangle = 1;
+        rectangle = 0;
     }
     Hitbox_type type = 1;
     double x=2;
     double y=3;
-    double width=3;
-    double height=4; 
+    double width=4;
+    double height=5; 
 }

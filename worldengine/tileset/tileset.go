@@ -24,8 +24,10 @@ import (
 	"fmt"
 	"image"
 
-	"github.com/mrmasterplan/jumper/src/config"
-	"github.com/mrmasterplan/jumper/src/mapxml"
+	"github.com/mrmasterplan/jumper/worldengine/config"
+	"github.com/mrmasterplan/jumper/worldengine/tiled/mapxml"
+	// "github.com/mrmasterplan/jumper/src/config"
+	// "github.com/mrmasterplan/jumper/src/mapxml"
 )
 
 func ParseTMXTileSet(tsx *mapxml.TMXTileset) (*Tileset, error) {
@@ -47,6 +49,7 @@ func ParseTMXTileSet(tsx *mapxml.TMXTileset) (*Tileset, error) {
 	}
 
 	// if there is a tileset image, we need to create a cache of images.
+	
 
 	return ts, nil
 }
@@ -63,8 +66,10 @@ type Tileset struct {
 
 }
 
+type WorldStateUpdate interface{}
+
 type WorldAction interface {
-	TransformWorld(win *interface{}, wout *interface{}) error
+	TransformWorld(win *interface{}) (WorldStateUpdate, error)
 }
 
 type TileInSet struct {
@@ -85,10 +90,10 @@ type TileInSet struct {
 
 	// the folloing two attributes are only relevant for serialization and not used in game execution
 	// actions are either scripted (lua) or pre-compiled in a function pointer map
-	TouchActionScriptIndex int    // which index in the tileset script list generates the action for this Tile
+	TouchActionScriptIndex string // which index in the tileset script list generates the action for this Tile
 	TouchLibaryAction      string // which pre-compiled library action does this tile use
 
 	TickAction            WorldAction
-	TickActionScriptIndex int    // which index in the tileset script list generates the action for this Tile
+	TickActionScriptIndex string // which index in the tileset script list generates the action for this Tile
 	TickLibaryAction      string // which pre-compiled library action does this tile use
 }

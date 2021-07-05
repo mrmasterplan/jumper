@@ -5,7 +5,7 @@ import (
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
-	"github.com/mrmasterplan/jumper/src/config"
+	gameconfig "github.com/mrmasterplan/jumper/game/config"
 
 
 )
@@ -26,11 +26,11 @@ func (g *Game) Draw(screen *ebiten.Image) {
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
 	// Return the game screen size
-	return config.GameWindow.X, config.GameWindow.Y
+	return gameconfig.GameWindow.X, gameconfig.GameWindow.Y
 }
 
 func main() {
-	ebiten.SetWindowSize(config.GameWindowWorldView.X, config.GameWindowWorldView.Y)
+	ebiten.SetWindowSize(gameconfig.GameWindowWorldView.X, gameconfig.GameWindowWorldView.Y)
 	ebiten.SetWindowTitle("my title")
 	game := &Game{}
 	if err := ebiten.RunGame(game); err != nil {

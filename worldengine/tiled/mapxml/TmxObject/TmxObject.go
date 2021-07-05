@@ -1,10 +1,13 @@
-package mapxml
+package TmxObject
 
 import (
 	"encoding/xml"
+
+	"github.com/mrmasterplan/jumper/worldengine/tiled/mapxml/TmxProperties"
+	"github.com/mrmasterplan/jumper/worldengine/tiled/mapxml/TmxUtils"
 )
 
-type TMXObject struct {
+type TmxObject struct {
 	// <object>
 	// ~~~~~~~~
 	XMLName xml.Name `xml:"object"`
@@ -20,10 +23,12 @@ type TMXObject struct {
 	Type string `xml:"type,attr"`
 	// -  **x:** The x coordinate of the object in pixels. (defaults to 0)
 	// -  **y:** The y coordinate of the object in pixels. (defaults to 0)
-	tmxXY
+	TmxUtils.EmbedXY
+
 	// -  **width:** The width of the object in pixels. (defaults to 0)
 	// -  **height:** The height of the object in pixels. (defaults to 0)
-	tmxWidthHeight
+	TmxUtils.EmbedWidthHeight
+
 	// -  **rotation:** The rotation of the object in degrees clockwise around (x, y).
 	//    (defaults to 0)
 	Rotation float64 `xml:"rotation,attr"`
@@ -58,15 +63,15 @@ type TMXObject struct {
 	// 0.9), :ref:`tmx-point` (since 1.1), :ref:`tmx-polygon`, :ref:`tmx-polyline`,
 	// :ref:`tmx-text` (since 1.0)
 		 
-	Properties TMXProperties
-	Ellipse *TMXEllipse
-	Point *TMXPoint
-	Polygon *TMXPolygon
-	Polyline *TMXPolyLine
-	Text *TMXText
+	TmxProperties.EmbedTmxProperties
+	Ellipse *TmxEllipse
+	Point *TmxPoint
+	Polygon *TmxPolygon
+	Polyline *TmxPolyLine
+	Text *TmxText
 }
 
-type TMXEllipse struct {
+type TmxEllipse struct {
 	// <ellipse>
 	// ~~~~~~~~~
 	XMLName xml.Name `xml:"ellipse"`
@@ -76,7 +81,7 @@ type TMXEllipse struct {
 	// the ellipse.
 }
 
-type TMXPoint struct {
+type TmxPoint struct {
 	// <point>
 	// ~~~~~~~~~
 	XMLName xml.Name `xml:"point"`
@@ -86,7 +91,7 @@ type TMXPoint struct {
 
 }
 
-type TMXPolygon struct {
+type TmxPolygon struct {
 	// <polygon>
 	// ~~~~~~~~~
 	XMLName xml.Name `xml:"polygon"`
@@ -101,7 +106,7 @@ type TMXPolygon struct {
 
 }
 
-type TMXPolyLine struct {
+type TmxPolyLine struct {
 	// <polyline>
 	// ~~~~~~~~~~
 	XMLName xml.Name `xml:"polyline"`
@@ -113,7 +118,7 @@ type TMXPolyLine struct {
 
 }
 
-type TMXText struct {
+type TmxText struct {
 	// <text>
 	// ~~~~~~
 	XMLName xml.Name `xml:"text"`
